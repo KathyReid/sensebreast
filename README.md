@@ -91,16 +91,29 @@ In the block of aliases, add:
 
 `alias ls='ls -las'`
 
-Then use `:wq` to write and quite. 
+Then use `:wq` to write and quit. 
 
 Type `exit` then log in again, and when you use `ls` it will give you verbose information. Very helpful for development purposes. 
+
+##### Symlinking the `wpa_supplicant.conf` file
+
+Once you have the repo down, you can symlink `wpa_supplicant.conf` to make your life easier. 
+
+```
+cd /etc/wpa_supplicant
+sudo rm wpa_supplicant.conf
+sudo ln -s /home/pi/sensebreast/wpa_supplicant.conf wpa_supplicant.conf
+```
+
+This means that you can make changes to `wpa_supplicant.conf` in `git` such as adding a new network, and when you update the `sensebreast` repo using `git pull`, you will bring the changes down automagically. 
 
 
 #### Install the `sense-hat` package for Raspbian
 
-* Connect your RPi to the network in whatever way makes 
 * Install [Sense HAT and the Python libraries for Sense HAT](https://www.raspberrypi.org/documentation/hardware/sense-hat/). The Python libraries are installed by installing the `sense-hat` package - you don't have to install something separate. 
-* 
+
+
+
 
 
 
