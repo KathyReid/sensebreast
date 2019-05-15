@@ -51,6 +51,8 @@ There are two methods to do this.
 
 
 * Connect your RPi to the network in whatever way makes 
-* Install [Sense HAT and the Python libraries for Sense HAT](https://www.raspberrypi.org/documentation/hardware/sense-hat/)
+* Install [Sense HAT and the Python libraries for Sense HAT](https://www.raspberrypi.org/documentation/hardware/sense-hat/). The Python libraries are installed by installing the `sense-hat` package - you don't have to install something separate. 
+* 
+
 
 
