@@ -115,6 +115,10 @@ Then use `:wq` to write and quit.
 
 Type `exit` then log in again, and when you use `ls` it will give you verbose information. Very helpful for development purposes. 
 
+##### Get `nano` to do proper syntax highlighting
+
+If you're doing any development work on the SenseBreast, then 
+
 ##### Symlinking the `wpa_supplicant.conf` file
 
 Once you have the repo down, you can symlink `wpa_supplicant.conf` to make your life easier. 
