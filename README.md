@@ -43,6 +43,12 @@ To build SenseBreast you will need:
 
 _NOTE: You will not have network access yet, that's the next step._
 
+##### Set the localisation for your preferred keyboard layout
+
+By default, the RPi ships with the `en-GB` keyboard layout, which has several different key settings, like the `@` symbol and `#` symbol aren't where they are on an Australian keyboard. To set localisation options, type `sudo raspi-config` at the command line, then choose `4 - Localisation option`. If you're Australian, choose `en-AU`, then set this as the default `LOCALE`. Then, set the keyboard layout to `English-Australian` by typing `sudo raspi-config`, then choosing `4 - Localisation options` then `I3 Change Keyboard Layout`. 
+
+This will make you life easier when manually typing configurations. 
+
 ##### Connect to a network with internet access
 
 _NOTE: This is the hardest step in hardware setup. Do not underestimate how difficult this step is. Here be dragons._
@@ -54,8 +60,8 @@ There are two methods to do this.
 Chances are though that you're on a secure, PEAP-authenticated network, in which case this method won't work and you'll need to manually edit the `wpa_supplicant.conf` file. This is an exercise in pain, misery and the limits of caffeine tolerance, so the repo includes a sample `wpa_supplicant.conf` to protect your sanity. The tutorial [here](https://www.raspberrypi.org/forums/viewtopic.php?t=111100) shows you how to generate a password hash for PEAP authentication. 
 
 * `cd /etc/wpa_supplicant`
-* `mv wpa_supplicant.conf wpa_supplicant.conf.BAK` # this makes a copy of the existing file in case of borkage
-* `nano wpa_supplicant.conf` 
+* `sudo mv wpa_supplicant.conf wpa_supplicant.conf.BAK` # this makes a copy of the existing file in case of borkage
+* `sudo nano wpa_supplicant.conf` 
 
 Then, edit the wpa_supplicant.conf with the details relevant for your network. Use `Ctrl + X` to save. Type `sudo reboot now` on the command line to reboot. 
 
@@ -67,11 +73,27 @@ If you have a working `wpa_supplicant.conf` file then you will be able to procee
 
 `sudo apt-get install git`
 
-Then
+Then, we clone this repo: 
+
+`git clone https://gitlab.cecs.anu.edu.au/u6933485/sensebreast/`
+
+You will be asked for your ANU CECS GitLab username and password. 
+
+_NOTE: If you have 2FA enabled on the CECS GitLab, remember to use your token instead of your raw password._
 
 ##### A little `.bashrc` hack for making `ls` much nicer 
 
+`sudo vi ~/.bashrc`
 
+Use the `/` key and enter `alias`. 
+
+In the block of aliases, add: 
+
+`alias ls='ls -las'`
+
+Then use `:wq` to write and quite. 
+
+Type `exit` then log in again, and when you use `ls` it will give you verbose information. Very helpful for development purposes. 
 
 
 #### Install the `sense-hat` package for Raspbian
