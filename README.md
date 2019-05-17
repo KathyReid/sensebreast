@@ -137,6 +137,12 @@ This means that you can make changes to `wpa_supplicant.conf` in `git` such as a
 * Install [Sense HAT and the Python libraries for Sense HAT](https://www.raspberrypi.org/documentation/hardware/sense-hat/). The Python libraries are installed by installing the `sense-hat` package - you don't have to install something separate. 
 
 
+##### Calibrate the sensors using `octave`
+
+* Follow the [instructions on the Sense HAT website](https://www.raspberrypi.org/forums/viewtopic.php?f=104&t=109064&p=750616#p810193) or [this forum post](https://www.raspberrypi.org/forums/viewtopic.php?f=104&t=109064&p=750616#p810193) to calibrate the sensors. 
+
+
+
 #### Using sensors 
 
 
@@ -144,6 +150,9 @@ This means that you can make changes to `wpa_supplicant.conf` in `git` such as a
 
 
 ### Future directions for development
+
+
+### Disk image of SenseBreast
 
 
 
