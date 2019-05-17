@@ -1,5 +1,25 @@
 # SenseBreast 
 
+- [SenseBreast](#sensebreast)
+  * [What is SenseBreast?](#what-is-sensebreast-)
+  * [How do you build SenseBreast?](#how-do-you-build-sensebreast-)
+    + [Requirements](#requirements)
+    + [Method](#method)
+      - [Raspberry Pi](#raspberry-pi)
+        * [Flash the Raspbian operating system to the Micro SD card](#flash-the-raspbian-operating-system-to-the-micro-sd-card)
+        * [Set the localisation for your preferred keyboard layout](#set-the-localisation-for-your-preferred-keyboard-layout)
+        * [Connect to a network with internet access](#connect-to-a-network-with-internet-access)
+        * [Install `git` and clone this repo](#install--git--and-clone-this-repo)
+        * [A little `.bashrc` hack for making `ls` much nicer](#a-little--bashrc--hack-for-making--ls--much-nicer)
+        * [Symlinking the `wpa_supplicant.conf` file](#symlinking-the--wpa-supplicantconf--file)
+        * [Install the `sense-hat` package for Raspbian](#install-the--sense-hat--package-for-raspbian)
+      - [Using sensors](#using-sensors)
+    + [Prosthetic form](#prosthetic-form)
+    + [Future directions for development](#future-directions-for-development)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 ## What is SenseBreast? 
 
 SenseBreast is a Maker Project for CECS8001 - Lab, by Kathy Reid (@kathyreid on the Twitters, GitHub, IRC etc). 
@@ -95,6 +115,10 @@ Then use `:wq` to write and quit.
 
 Type `exit` then log in again, and when you use `ls` it will give you verbose information. Very helpful for development purposes. 
 
+##### Get `nano` to do proper syntax highlighting
+
+If you're doing any development work on the SenseBreast, then 
+
 ##### Symlinking the `wpa_supplicant.conf` file
 
 Once you have the repo down, you can symlink `wpa_supplicant.conf` to make your life easier. 
@@ -108,12 +132,18 @@ sudo ln -s /home/pi/sensebreast/wpa_supplicant.conf wpa_supplicant.conf
 This means that you can make changes to `wpa_supplicant.conf` in `git` such as adding a new network, and when you update the `sensebreast` repo using `git pull`, you will bring the changes down automagically. 
 
 
-#### Install the `sense-hat` package for Raspbian
+##### Install the `sense-hat` package for Raspbian
 
 * Install [Sense HAT and the Python libraries for Sense HAT](https://www.raspberrypi.org/documentation/hardware/sense-hat/). The Python libraries are installed by installing the `sense-hat` package - you don't have to install something separate. 
 
 
+#### Using sensors 
 
+
+### Prosthetic form 
+
+
+### Future directions for development
 
 
 
