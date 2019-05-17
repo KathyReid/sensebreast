@@ -117,7 +117,14 @@ Type `exit` then log in again, and when you use `ls` it will give you verbose in
 
 ##### Get `nano` to do proper syntax highlighting
 
-If you're doing any development work on the SenseBreast, then 
+If you're doing any development work on the SenseBreast using the `nano` editor, then you will want to create and edit a `.nanorc` file in the `pi` user's home directory. 
+
+An example `.nanorc` is included in the repo, which includes Python and bash syntax highlighting. 
+
+```bash
+include /usr/share/nano/sh.nanorc
+include /usr/share/nano/python.nanorc
+```
 
 ##### Symlinking the `wpa_supplicant.conf` file
 
@@ -137,13 +144,15 @@ This means that you can make changes to `wpa_supplicant.conf` in `git` such as a
 * Install [Sense HAT and the Python libraries for Sense HAT](https://www.raspberrypi.org/documentation/hardware/sense-hat/). The Python libraries are installed by installing the `sense-hat` package - you don't have to install something separate. 
 
 
+#### Using sensors 
+
 ##### Calibrate the sensors using `octave`
 
 * Follow the [instructions on the Sense HAT website](https://www.raspberrypi.org/forums/viewtopic.php?f=104&t=109064&p=750616#p810193) or [this forum post](https://www.raspberrypi.org/forums/viewtopic.php?f=104&t=109064&p=750616#p810193) to calibrate the sensors. 
 
+* The files in the `sensing-scripts` directory use Python to take readings from the Sense HAT. 
 
 
-#### Using sensors 
 
 
 ### Prosthetic form 
