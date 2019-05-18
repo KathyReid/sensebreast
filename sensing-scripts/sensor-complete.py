@@ -15,11 +15,22 @@
 #	so don't make this any bigger than about 0.300
 loopInterval =  0.100
 
+# how long to record data before writing to a new JSON file
+# Not sure yet what the optimal setting is here
+# measured in milliseconds, 6000 = 5 minutes 
+writeInterval = 6000 
+
+
+
+
 # import the SenseHat library
 from sense_hat import SenseHat
 
 # import the time library which gives us sleep() 
 import time
+
+# import json which allows us to read and write JSON files
+import json
 
 # instantiate new SenseHat object
 sense = SenseHat()
@@ -31,21 +42,24 @@ sense.clear()
 sense.set_imu_config(True, True, True) # compass, gyroscope, accelerometer in that order
 
 
+# initialise the list{} structure used to hold the sensor readings
+data = {} 
+
 while True: 
 	# sleep for an interval 
 	# this is to help control the amount of data generated
 	# and provides a rudimentary tuning mechanism
 	time.sleep(loopInterval)	
 
-	# temperature and pressure readings
+	# temperature and pressure and humidity readings
 	temperature = sense.get_temperature()
-	print("temperature is: ", temperature)
+	print("Temperature: {t:.5f}".format(t=temperature, precision=5))
 
 	pressure = sense.get_pressure()
 	print("pressure is: ", pressure)
 
 	humidity = sense.get_humidity()
-	print("humidity is: ", humidity)
+g	print("humidity is: ", humidity)
 
 	# IMU readings
 	orientation = sense.get_orientation()
