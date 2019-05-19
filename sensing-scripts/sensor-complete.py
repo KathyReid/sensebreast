@@ -21,13 +21,19 @@ loopInterval =  0.100
 writeInterval = 6000 
 
 
-
+# import libraries
+# @TODO need to figure out most efficient way to do this -
+#	do I need every package from every library or
+#	can I just import what I need. Will refactor. 
 
 # import the SenseHat library
 from sense_hat import SenseHat
 
 # import the time library which gives us sleep() 
 import time
+
+# import the datetime library which allows us to create a timestamp to include in the JSON file
+import datetime
 
 # import json which allows us to read and write JSON files
 import json
@@ -43,23 +49,38 @@ sense.set_imu_config(True, True, True) # compass, gyroscope, accelerometer in th
 
 
 # initialise the list{} structure used to hold the sensor readings
-data = {} 
+data = {}
+data['basic'] = []
+data['imu'] = []
+data['meta'] = [] 
 
 while True: 
 	# sleep for an interval 
 	# this is to help control the amount of data generated
 	# and provides a rudimentary tuning mechanism
-	time.sleep(loopInterval)	
+	time.sleep(loopInterval)
+
+	# add a timestamp to the data structure
+	timestamp = time.time()
+	datestamp = datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d-%H:%M:%S')
+	print(timestamp) 
+	data['meta'].append({
+		'timestamp': timestamp, 
+		'datestamp': datestamp
+	})
 
 	# temperature and pressure and humidity readings
 	temperature = sense.get_temperature()
 	print("Temperature: {t:.5f}".format(t=temperature, precision=5))
+	data['basic'].append({
+		'temperature': temperature
+	})
 
 	pressure = sense.get_pressure()
-	print("pressure is: ", pressure)
+	print("", pressure)
 
 	humidity = sense.get_humidity()
-g	print("humidity is: ", humidity)
+	print("humidity is: ", humidity)
 
 	# IMU readings
 	orientation = sense.get_orientation()
