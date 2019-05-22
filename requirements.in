@@ -1,0 +1,25 @@
+# This file lists the packages you need to work on this repository.
+# You can put a minumum version like `hypothesis >= 4.5.0`.
+#
+# You can install from it directly with `pip install -r requirements.in`
+# That will use whatever version is already installed, or install the
+# latest version if a particular package is not installed at all.
+#
+# Alternatively, you can create a file with *exact* version requirements
+# and then install from that for consistency across machines with
+# `pip-compile --output-file requirements.txt requirements.in`
+# Check the pip-tools docs for details like `pip-sync` :-)
+
+# Zac's suggested development tools - used by `check.sh`
+autoflake
+black
+flake8
+hypothesis
+isort
+mypy
+pip-tools
+pytest
+pytest-cov
+pyupgrade
+
+# List your own dependencies below!

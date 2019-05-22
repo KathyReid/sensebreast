@@ -1,3 +1,64 @@
+<<<<<<< HEAD
+# tools
+Demo configuration for the Python development tools I like to use.
+
+To use them yourself:
+
+- Copy the contents of this repo to your project,
+  except for `README.md` and `LICENSE`.
+- Run `pip install -r requirements.in` to install tools.
+- Read `check.sh` (running scripts you haven't read is a bad habit)
+- Run `./check.sh` to execute it.  And you're done!
+
+Optional:
+
+- Make sure your team is using a sensible Git workflow.
+  In short: everyone should use their own branch, and `master`
+  should always be "the current working version".
+- Write some automated tests using `pytest` and `hypothesis`.
+- Set up a CI service (see `.travis.yml`) to run tests for you.
+
+## What the tools do
+`autoflake` and `pyupgrade` are "fixers", which edit your code to
+remove unused imports and variables, consistently use the newer
+option of various equivalent language features, and so on.
+
+`isort`, and `black` are "auto-formatters", which ensure that your
+code style is always consistent - across the project, and with
+PEP8 (the Python standard library style guide).  The details are
+tuned to promote readability and reduce git merge conflicts.
+
+`flake8` is a "linter", which can detect various common problems
+like undefined variables without even running your code.  This is
+always useful, but especially when you're learning!
+(it also warns about style issues, but Black has fixed those already)
+
+`mypy` lets you annotate your code with expected types, then check
+the whole thing for consistency.  This is most useful on larger
+codebases, and I like a fairly strict configuration, so it's
+commented out of `check.sh` by default.
+
+Finally, if you choose to write your own tests for your code
+`pytest` provides a convenient way to run them, and a very
+informative interface to see exactly what went wrong.
+
+## Why use them?
+Automatically fixing and formatting your code makes it consistent
+across the team, and easier to read and understand.
+
+Linters are the fastest way to catch trivial bugs, and taught me
+a lot about writing idiomatic Python.  Static typing can catch
+less-trivial bugs, even some that tests wouldn't.
+
+And writing your own tests means that you can very easily, or even
+automatically, check that your latest change didn't break previous
+features!
+
+## About these files
+Instead of writing up a description in the README, I've added
+a comment header to each file explaining what it does and why
+I use that specific configuration.
+=======
 # SenseBreast 
 
 - [SenseBreast](#sensebreast)
@@ -165,3 +226,4 @@ This means that you can make changes to `wpa_supplicant.conf` in `git` such as a
 
 
 
+>>>>>>> 36091fac3d4599ce449700d91787405a757ea0b3
