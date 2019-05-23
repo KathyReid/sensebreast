@@ -33,7 +33,7 @@ from sense_hat import SenseHat
 import time
 
 # import the datetime library which allows us to create a timestamp to include in the JSON file
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # import json which allows us to read and write JSON files
 import json
@@ -55,15 +55,11 @@ data['imu']['orientation'] = []
 data['imu']['acceleration'] = []
 data['meta'] = [] 
 
-# amount of time, in seconds, that the script should run for 
-scriptDuration = timedelta(seconds=300)
-
-# timestamp to determine the start time of the script 
+# set a timestamp so we know how long the script has been running 
 startTime = datetime.fromtimestamp(time.time())
 
-# loop for the scriptDuration   
-while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 
+while  
 	# sleep for an interval 
 	# this is to help control the amount of data generated
 	# and provides a rudimentary tuning mechanism
@@ -122,8 +118,3 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 	print("Acceleration is: x={0} y={1} z={2}".format(x, y, z))
 	
 	
-# once we have finished looping, save the JSON to a file using the startTime as a filename
-
-fileName = 'sensor-readings/' + str(startTime) + '.json'
-with open(fileName, 'w') as outfile:
-	json.dump(data, outfile)
