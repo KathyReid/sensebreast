@@ -33,7 +33,7 @@ from sense_hat import SenseHat
 import time
 
 # import the datetime library which allows us to create a timestamp to include in the JSON file
-import datetime
+from datetime import datetime
 
 # import json which allows us to read and write JSON files
 import json
@@ -47,23 +47,40 @@ sense.clear()
 # enable the three Inertial Motion Unit (IMU) sensors
 sense.set_imu_config(True, True, True) # compass, gyroscope, accelerometer in that order
 
-
 # initialise the list{} structure used to hold the sensor readings
 data = {}
 data['basic'] = []
-data['imu'] = []
+data['imu'] =  {}
+data['imu']['orientation'] = []
+data['imu']['acceleration'] = []
 data['meta'] = [] 
 
-while True: 
+# timestamp to determine the start time of the script 
+startTime = datetime.fromtimestamp(time.time())
+
+# amount of time, in seconds, that the script should run for 
+scriptDuration = 60
+
+# loop for the scriptDuration 
+# while ((datetime.fromtimestamp(time.time()) - startTime) < scriptDuration)):  
+while True:
+
+	# print timestamps 
+	print((datetime.fromtimestamp(time.time()) - startTime).seconds)
+	print( (datetime.fromtimestamp(time.time()) - startTime) < scriptDuration).seconds)
+
 	# sleep for an interval 
 	# this is to help control the amount of data generated
 	# and provides a rudimentary tuning mechanism
 	time.sleep(loopInterval)
 
+	# print a blank line to screen to visually disambiguate each reading 
+	print("\n")
+
 	# add a timestamp to the data structure
 	timestamp = time.time()
-	datestamp = datetime.datetime.fromtimestamp(time()).strftime('%Y-%m-%d-%H:%M:%S')
-	print(timestamp) 
+	datestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H:%M:%S')
+	print("Timestamp: ", timestamp) 
 	data['meta'].append({
 		'timestamp': timestamp, 
 		'datestamp': datestamp
@@ -77,17 +94,29 @@ while True:
 	})
 
 	pressure = sense.get_pressure()
-	print("", pressure)
+	data['basic'].append({
+		'pressure': pressure
+	})
+	print("Pressure: {p: .5f}".format(p=pressure, precision=5))
 
 	humidity = sense.get_humidity()
-	print("humidity is: ", humidity)
+	data['basic'].append({
+		'humidity': humidity
+	})
+	print("Humidity: {h: .5f}".format(h=humidity, precision=5))
 
 	# IMU readings
 	orientation = sense.get_orientation()
 	pitch = orientation['pitch']
 	roll = orientation['roll']
 	yaw = orientation['yaw']
-	print("orientation is: pitch {0} roll {1} yaw{2}".format(pitch, roll, yaw))
+	print("Orientation is: pitch {0} roll {1} yaw {2}".format(pitch, roll, yaw))
+
+	data['imu']['orientation'].append({
+		'pitch': pitch,
+		'roll': roll,
+		'yaw': yaw
+	})
 
 	acceleration = sense.get_accelerometer_raw()
 	
@@ -95,8 +124,11 @@ while True:
 	y = acceleration['y']
 	z = acceleration['z']
 
-	x = round(x, 0)
-	y = round(y, 0)
-	z = round(z, 0)
+	print("Acceleration is: x={0} y={1} z={2}".format(x, y, z))
+	
+	
+# once we have finished looping, save the JSON to a file using the startTime as a filename
 
-	print("raw acceleration is: x={0} y={1} z-{2}".format(x, y, z))
+fileName = str(startTime) + '.json'
+with open(fileName, 'w') as outfile:
+	json.dump(data, outfile)
