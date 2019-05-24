@@ -70,12 +70,12 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 	time.sleep(loopInterval)
 
 	# print a blank line to screen to visually disambiguate each reading 
-	print("\n")
+	#print("\n")
 
 	# add a timestamp to the data structure
 	timestamp = time.time()
 	datestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H:%M:%S')
-	print("Timestamp: ", timestamp) 
+	#print("Timestamp: ", timestamp) 
 	data['meta'].append({
 		'timestamp': timestamp, 
 		'datestamp': datestamp
@@ -92,20 +92,20 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 	data['basic'].append({
 		'pressure': pressure
 	})
-	print("Pressure: {p: .5f}".format(p=pressure, precision=5))
+	#print("Pressure: {p: .5f}".format(p=pressure, precision=5))
 
 	humidity = sense.get_humidity()
 	data['basic'].append({
 		'humidity': humidity
 	})
-	print("Humidity: {h: .5f}".format(h=humidity, precision=5))
+	#print("Humidity: {h: .5f}".format(h=humidity, precision=5))
 
 	# IMU readings
 	orientation = sense.get_orientation()
 	pitch = orientation['pitch']
 	roll = orientation['roll']
 	yaw = orientation['yaw']
-	print("Orientation is: pitch {0} roll {1} yaw {2}".format(pitch, roll, yaw))
+	#print("Orientation is: pitch {0} roll {1} yaw {2}".format(pitch, roll, yaw))
 
 	data['imu']['orientation'].append({
 		'pitch': pitch,
@@ -119,11 +119,11 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 	y = acceleration['y']
 	z = acceleration['z']
 
-	print("Acceleration is: x={0} y={1} z={2}".format(x, y, z))
+	#print("Acceleration is: x={0} y={1} z={2}".format(x, y, z))
 	
 	
 # once we have finished looping, save the JSON to a file using the startTime as a filename
 
-fileName = 'sensor-readings/' + str(startTime) + '.json'
+fileName = '/home/pi/sensebreast/sensing-scripts/sensor-readings/' + str(startTime) + '.json'
 with open(fileName, 'w') as outfile:
 	json.dump(data, outfile)
