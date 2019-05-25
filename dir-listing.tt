@@ -1,0 +1,24 @@
+total 100
+ 4 drwxr-xr-x 8 pi   pi    4096 May 25 10:11 .
+ 4 drwxr-xr-x 5 pi   pi    4096 May 24 09:23 ..
+ 4 -rwxr-xr-x 1 pi   pi    1031 May 22 22:18 check.sh
+ 4 drwxr-xr-x 2 pi   pi    4096 May 16 07:34 data
+ 0 -rw-r--r-- 1 pi   pi       0 May 25 10:11 dir-listing.tt
+ 4 drwxr-xr-x 8 pi   pi    4096 May 24 10:56 .git
+ 4 -rw-r--r-- 1 pi   pi      28 May 22 22:18 .gitignore
+ 4 -rw-r--r-- 1 pi   pi      42 May 16 07:17 hash.txt
+ 4 -rw-r--r-- 1 pi   pi    1184 May 16 07:17 ifconfig.txt
+ 4 -rw-r--r-- 1 pi   pi     302 May 22 22:18 .isort.cfg
+ 4 drwxr-xr-x 2 pi   pi    4096 May 24 10:19 log
+ 4 drwxr-xr-x 2 pi   pi    4096 May 17 13:48 logo
+ 4 -rw-r--r-- 1 pi   pi     532 May 22 22:18 mypy.ini
+ 4 -rw-r--r-- 1 pi   pi      72 May 16 08:17 .nanorc
+ 0 lrwxrwxrwx 1 root root    27 May 24 09:51 pi-user-crontab -> /var/spool/cron/crontabs/pi
+ 4 -rw-r--r-- 1 pi   pi     299 May 22 22:18 pytest.ini
+12 -rw-r--r-- 1 pi   pi   10889 May 22 22:18 README.md
+ 4 -rw-r--r-- 1 pi   pi     780 May 22 22:18 requirements.in
+ 4 drwxr-xr-x 2 root root  4096 May 16 07:24 RTEllipsoidFit
+12 -rw-r--r-- 1 pi   pi   12096 May 17 12:22 RTIMULib.ini
+ 4 drwxr-xr-x 3 pi   pi    4096 May 25 10:10 sensing-scripts
+ 4 -rw-r--r-- 1 pi   pi     754 May 22 22:18 .travis.yml
+ 4 -rw-r--r-- 1 pi   pi    1026 May 16 07:17 wpa_supplicant.conf

@@ -83,7 +83,7 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 
 	# temperature and pressure and humidity readings
 	temperature = sense.get_temperature()
-	print("Temperature: {t:.5f}".format(t=temperature, precision=5))
+	#print("Temperature: {t:.5f}".format(t=temperature, precision=5))
 	data['basic'].append({
 		'temperature': temperature
 	})
