@@ -29,8 +29,10 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = innerHeight - margin.top - margin.bottom;
 
 // this should take the lowest time stamp and the highest time stamp
-var x = d3.time.scale()
-    .range([0, width]);
+var x = d3.scaleTime()
+    .range([0, width])
+    .domain([ '2019-05-25-11:20:02', '2019-05-25-11:25:02'])
+
 
 var y = d3.scaleLinear()
     .range([height, 0]);
