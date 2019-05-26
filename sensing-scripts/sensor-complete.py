@@ -124,6 +124,6 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 	
 # once we have finished looping, save the JSON to a file using the startTime as a filename
 
-fileName = '/home/pi/sensebreast/sensing-scripts/sensor-readings/' + str(startTime) + '.json'
+fileName = '/home/pi/sensebreast/sensing-scripts/sensor-readings/' + str(time.time()) + '.json'
 with open(fileName, 'w') as outfile:
 	json.dump(data, outfile)
