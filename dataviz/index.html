@@ -5,7 +5,7 @@
 <style>
 
 body {
-  font: 10px sans-serif;
+  font: 20px sans-serif;
 }
 
 .axis path,
@@ -29,17 +29,25 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = innerHeight - margin.top - margin.bottom;
 
 // this should take the lowest time stamp and the highest time stamp
+// https://javascript.info/date
 var x = d3.scaleTime()
     .range([0, width])
-    .domain([ '2019-05-25-11:20:02', '2019-05-25-11:25:02'])
-
+    .domain([(d3.timeMinute(Date.parse('2019-05-25-11:20:02'))), (d3.timeMinute(Date.parse('2019-05-25-11:25:02')))]);
 
 var y = d3.scaleLinear()
     .range([height, 0]);
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
+// https://github.com/pshrmn/notes/blob/master/d3/axes.md
+// https://github.com/d3/d3-time-format
 var xAxis = d3.axisBottom(x);
+xAxis.ticks(10);
+xAxis.tickFormat(d3.timeFormat("%H %M %S %L"));
+xAxis.tickSize(5);
+xAxis.tickValues('2019-05-25-11:20:00', '2019-05-25-11:20:30', '2019-05-25-11:21:00')
+
+console.log(xAxis)
 
 var yAxis = d3.axisLeft(y);
 
@@ -53,16 +61,19 @@ d3.json("test.json", function(error, data) {
   if (error) throw error;
   console.log(data)
 
+// x-axis
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
     .append("text")
       .attr("class", "label")
-      .attr("x", width)
-      .attr("y", -6)
+      //.attr("y", 50)
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-65)")
       .style("text-anchor", "end")
-      .text("Sepal Width (cm)");
+      .text("Time");
 
   svg.append("g")
       .attr("class", "y axis")
