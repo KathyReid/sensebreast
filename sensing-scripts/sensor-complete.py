@@ -48,18 +48,25 @@ sense.clear()
 sense.set_imu_config(True, True, True) # compass, gyroscope, accelerometer in that order
 
 # initialise the list{} structure used to hold the sensor readings
-data = {}
-data['basic'] = []
-data['imu'] =  {}
-data['imu']['orientation'] = []
-data['imu']['acceleration'] = []
-data['meta'] = [] 
+# This is actually a Dict structure because curly brackets
+# Refactoring after discussions with Zac to use Dict literals instead
+
+#data = {}
+#data['basic'] = []
+#data['imu'] =  {}
+#data['imu']['orientation'] = []
+#data['imu']['acceleration'] = []
+#data['meta'] = [] 
 
 # amount of time, in seconds, that the script should run for 
 scriptDuration = timedelta(seconds=300)
 
 # timestamp to determine the start time of the script 
 startTime = datetime.fromtimestamp(time.time())
+
+# set the filename before we begin looping so we can append to it 
+fileName = '/home/pi/sensebreast/sensing-scripts/sensor-readings/' + str(time.time()) + '.json'
+
 
 # loop for the scriptDuration   
 while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
@@ -74,30 +81,30 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 
 	# add a timestamp to the data structure
 	timestamp = time.time()
-	datestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H:%M:%S')
+	datestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 	#print("Timestamp: ", timestamp) 
-	data['meta'].append({
-		'timestamp': timestamp, 
-		'datestamp': datestamp
-	})
+	#data['meta'].append({
+	#	'timestamp': timestamp, 
+	#	'datestamp': datestamp
+	#})
 
 	# temperature and pressure and humidity readings
 	temperature = sense.get_temperature()
 	#print("Temperature: {t:.5f}".format(t=temperature, precision=5))
-	data['basic'].append({
-		'temperature': temperature
-	})
+	#data['basic'].append({
+	#	'temperature': temperature
+	#})
 
 	pressure = sense.get_pressure()
-	data['basic'].append({
-		'pressure': pressure
-	})
+	#data['basic'].append({
+	#	'pressure': pressure
+	#})
 	#print("Pressure: {p: .5f}".format(p=pressure, precision=5))
 
 	humidity = sense.get_humidity()
-	data['basic'].append({
-		'humidity': humidity
-	})
+	#data['basic'].append({
+	#	'humidity': humidity
+	#})
 	#print("Humidity: {h: .5f}".format(h=humidity, precision=5))
 
 	# IMU readings
@@ -107,11 +114,11 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 	yaw = orientation['yaw']
 	#print("Orientation is: pitch {0} roll {1} yaw {2}".format(pitch, roll, yaw))
 
-	data['imu']['orientation'].append({
-		'pitch': pitch,
-		'roll': roll,
-		'yaw': yaw
-	})
+	#data['imu']['orientation'].append({
+	#	'pitch': pitch,
+	#	'roll': roll,
+	#	'yaw': yaw
+	#})
 
 	acceleration = sense.get_accelerometer_raw()
 	
@@ -121,9 +128,18 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 
 	#print("Acceleration is: x={0} y={1} z={2}".format(x, y, z))
 	
-	
-# once we have finished looping, save the JSON to a file using the startTime as a filename
+	# make me a Dict literal. Stand back, I'm about to science ;-) 
 
-fileName = '/home/pi/sensebreast/sensing-scripts/sensor-readings/' + str(time.time()) + '.json'
-with open(fileName, 'w') as outfile:
-	json.dump(data, outfile)
+	data = { "datestamp": datestamp, 
+		 "timestamp": timestamp, 
+		 "temperature": temperature, 
+		 "pressure": pressure, 
+  		 "humidity": humidity, 
+		 "orientation": orientation, 
+		 "acceleration": acceleration
+		}, 
+	
+	#  open the file for appending (rather than writing), and write out the Dict literal
+
+	with open(fileName, 'a') as outfile:
+		json.dump(data, outfile)
