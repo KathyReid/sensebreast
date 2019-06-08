@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/pi/sensebreast/sensing-scripts/sensor-complete.py", line 49, in <module>
+    True, True, True
+  File "/usr/lib/python3/dist-packages/sense_hat/sense_hat.py", line 660, in set_imu_config
+    self._init_imu()  # Ensure imu is initialised
+  File "/usr/lib/python3/dist-packages/sense_hat/sense_hat.py", line 648, in _init_imu
+    raise OSError('IMU Init Failed')
+OSError: IMU Init Failed
