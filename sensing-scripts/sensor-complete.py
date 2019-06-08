@@ -1,9 +1,9 @@
-# This file is intended to use all the sensors from the Sense HAT, 
-#	and then write the data in JSON format to a series of files 
-#	that are truncated based on DateTime
+# This file is intended to use all the sensors from the Sense HAT,
+# 	and then write the data in JSON format to a series of files
+# 	that are truncated based on DateTime
 #
-# The JSON format has been specifically chosen so that 
-#	it can be easily parsed by data visualisation libraries
+# The JSON format has been specifically chosen so that
+# 	it can be easily parsed by data visualisation libraries
 #
 
 # define any variables used by this script here for code readability
@@ -11,25 +11,25 @@
 
 # how long to sleep() during each while... loop
 # measured in seconds, so this is a float
-# Note: The sensors do better with a shorter interval, 
-#	so don't make this any bigger than about 0.300
-loopInterval =  0.100
+# Note: The sensors do better with a shorter interval,
+# 	so don't make this any bigger than about 0.300
+loopInterval = 0.100
 
 # how long to record data before writing to a new JSON file
 # Not sure yet what the optimal setting is here
-# measured in milliseconds, 6000 = 5 minutes 
-writeInterval = 6000 
+# measured in milliseconds, 6000 = 5 minutes
+writeInterval = 6000
 
 
 # import libraries
 # @TODO need to figure out most efficient way to do this -
-#	do I need every package from every library or
-#	can I just import what I need. Will refactor. 
+# 	do I need every package from every library or
+# 	can I just import what I need. Will refactor.
 
 # import the SenseHat library
 from sense_hat import SenseHat
 
-# import the time library which gives us sleep() 
+# import the time library which gives us sleep()
 import time
 
 # import the datetime library which allows us to create a timestamp to include in the JSON file
@@ -45,7 +45,9 @@ sense = SenseHat()
 sense.clear()
 
 # enable the three Inertial Motion Unit (IMU) sensors
-sense.set_imu_config(True, True, True) # compass, gyroscope, accelerometer in that order
+sense.set_imu_config(
+    True, True, True
+)  # compass, gyroscope, accelerometer in that order
 
 # initialise the list{} structure used to hold the sensor readings
 # This is actually a Dict structure because curly brackets
@@ -143,3 +145,4 @@ while (datetime.fromtimestamp(time.time()) < (startTime + scriptDuration)):
 
 	with open(fileName, 'a') as outfile:
 		json.dump(data, outfile)
+    

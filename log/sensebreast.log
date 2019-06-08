@@ -1,0 +1,4 @@
+  File "/home/pi/sensebreast/sensing-scripts/sensor-complete.py", line 53
+    <<<<<<< HEAD
+     ^
+SyntaxError: invalid syntax
