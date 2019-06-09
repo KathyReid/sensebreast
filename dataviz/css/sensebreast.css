@@ -1,0 +1,23 @@
+
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: #000000;
+  stroke: none;
+  font-size: 100%;
+  font-weight: bold;
+}
+
+.dot {
+  stroke: none;
+}
+
+.y2 text {
+  fill: #680F77;
+}
