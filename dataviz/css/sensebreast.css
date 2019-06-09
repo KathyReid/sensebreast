@@ -1,3 +1,16 @@
+/*
+
+0   0   0    Black (#000000)
+255 255 255  White (#FFFFFF)
+51  51  51   3Ai.Grey (#333333)
+140 181 197  3Ai.Dull Teal (#8CB5C5) (Pantone 536 C)
+91  224 226  3Ai.Bright Aqua (#5BE0E2) (Pantone 305 C)
+130 255 158  3Ai.Apple Green (#82FF9E) (Pantone 7487 C)
+244 135 255  3Ai.Violet McKenzie (#F487FF) (Pantone 231 C)
+104 15  119  3Ai.Deep Purple (#680F77) (Pantone 2613 C)
+
+*/
+
 
 
 .axis path,
@@ -18,6 +31,15 @@
   stroke: none;
 }
 
-.y2 text {
-  fill: #680F77;
+/* Temperature */
+.temperature text {
+  fill: #8CB5C5;
+}
+/* Pressure */
+.pressure text {
+  fill: #5BE0E2;
+}
+/* Humidity */
+.humidity text {
+  fill: #82FF9E;
 }

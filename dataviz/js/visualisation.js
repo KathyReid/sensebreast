@@ -13,15 +13,27 @@ var x = d3.scaleTime()
 // the domain should be temperature in celsius
 var y = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, 40])
+    .domain([0, 40]);
 
 // trying to put a second y-axis in for pressure
 var y2 = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, 1200])
+    .domain([0, 1200]);
+
+// trying to put a second y-axis in for pressure
+var y3 = d3.scaleLinear()
+    .range([height, 0])
+    .domain([0, 100]);
+
 
 // define colors so we can call them programmatically rather than individually
-var color = d3.scaleOrdinal(d3.schemeCategory10);
+var color = d3.scaleOrdinal()
+  .range([
+    '#8CB5C5','#5BE0E2', '#82FF9E', '#F487FF', '#680F77'
+  ])
+  .domain([
+    'Temperature', 'Pressure', 'Humidity'
+  ]);
 
 // https://github.com/pshrmn/notes/blob/master/d3/axes.md
 // https://github.com/d3/d3-time-format
@@ -34,6 +46,7 @@ xAxis.tickSize(5);
 
 var yAxis = d3.axisLeft(y);
 var y2Axis = d3.axisLeft(y2);
+var y3Axis = d3.axisLeft(y3);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -43,7 +56,6 @@ var svg = d3.select("body").append("svg")
 
 d3.json("test.json", function(error, data) {
   if (error) throw error;
-  console.log(data)
 
 // x-axis
   svg.append("g")
@@ -59,9 +71,9 @@ d3.json("test.json", function(error, data) {
       .style("text-anchor", "end")
       .text("Time");
 
- // y axis
+ // y axis - temperature
   svg.append("g")
-      .attr("class", "y axis")
+      .attr("class", "y axis temperature")
       .call(yAxis)
     .append("text")
       .attr("class", "label")
@@ -70,9 +82,9 @@ d3.json("test.json", function(error, data) {
       .attr("dy", ".71em")
       .style("text-anchor", "end");
 
-  // y2 axis
+  // y2 axis - temperature
   svg.append("g")
-      .attr("class", "axis y2")
+      .attr("class", "y axis pressure")
       .call(y2Axis)
     .append("text")
       .attr("class", "label")
@@ -81,17 +93,52 @@ d3.json("test.json", function(error, data) {
       .attr("dy", ".71em")
       .style("text-anchor", "end");
 
+      // y3 axis - humidity
+      svg.append("g")
+          .attr("class", "y axis humidity")
+          .call(y3Axis)
+        .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 1000)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end");
+
 
   // Visualise temperature
   svg.selectAll(".dot")
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 0.5)
+      .attr("r", 0.7)
       .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
       .attr("cy", function(d) { return y(d.temperature); })
-      .style("fill", function(d) { return color(d.temperature); });
+      .style("fill", function(d) { return color('Temperature'); });
 
+      // Visualise humidity
+      svg.selectAll(".dot")
+          .data(data)
+        .enter().append("circle")
+          .attr("class", "dot")
+          .attr("r", 0.7)
+          .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
+          .attr("cy", function(d) { return y3(d.humidity); })
+          .style("fill", function(d) { return color('Humidity'); });
+
+    // Visualise pressure
+    svg.selectAll(".dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 0.7)
+        .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
+        .attr("cy", function(d) { return y2(d.pressure); })
+        .call(log, 'pressure', function(d) { return y2(d.pressure); })
+        .call(log, 'temperature', function(d) { return y(d.temperature); })
+        .style("fill", function(d) { return color('Pressure'); });
+
+
+  // Draw the legend
   var legend = svg.selectAll(".legend")
       .data(color.domain())
     .enter().append("g")
@@ -111,3 +158,8 @@ d3.json("test.json", function(error, data) {
       .style("text-anchor", "end")
       .text(function(d) { return d; });
 });
+
+// Helper functions
+function log(sel,msg) {
+  console.log(msg,sel);
+}
