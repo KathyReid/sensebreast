@@ -18,12 +18,12 @@ var y = d3.scaleLinear()
 // trying to put a second y-axis in for pressure
 var y2 = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, 1200]);
+    .domain([966.4, 967.0]);
 
 // trying to put a second y-axis in for pressure
 var y3 = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, 100]);
+    .domain([38, 46]);
 
 
 // define colors so we can call them programmatically rather than individually
@@ -107,7 +107,7 @@ d3.json("test.json", function(error, data) {
         .attr("y", -40)
         .attr("x", -height/2)
         .style("text-anchor", "end")
-        .text("Humidity (%)");
+        .text("Humidity (Millibars)");
 
 
   // Visualise temperature
@@ -122,7 +122,8 @@ d3.json("test.json", function(error, data) {
 
     // Visualise pressure
     svg.selectAll(".dot")
-        .data(data)
+        // the data needs to be re-bound
+        .data(data, function(d) { return d; })
       .enter().append("circle")
         .attr("class", "dot pressure")
         .attr("r", 0.7)
@@ -132,7 +133,7 @@ d3.json("test.json", function(error, data) {
 
 // Visualise humidity
 svg.selectAll(".dot")
-  .data(data)
+  .data(data, function(d) { return d; })
 .enter().append("circle")
   .attr("class", "dot humidity")
   .attr("r", 0.7)

@@ -28,7 +28,8 @@
 }
 
 .dot {
-  stroke: none;
+  stroke: #000000; 
+  stroke-width: 0.1pt;
 }
 
 /* Temperature */
