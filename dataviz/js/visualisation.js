@@ -1,6 +1,6 @@
 
 
-var margin = {top: 40, right: 40, bottom: 40, left: 40},
+var margin = {top: 40, right: 40, bottom: 40, left: 200},
     width = innerWidth - margin.left - margin.right,
     height = innerHeight - margin.top - margin.bottom;
 
@@ -13,7 +13,7 @@ var x = d3.scaleTime()
 // the domain should be temperature in celsius
 var y = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, 40]);
+    .domain([27, 33]);
 
 // trying to put a second y-axis in for pressure
 var y2 = d3.scaleLinear()
@@ -40,7 +40,7 @@ var color = d3.scaleOrdinal()
 var xAxis = d3.axisBottom(x);
 xAxis.ticks(30);
 xAxis.tickFormat(d3.timeFormat("%M %S"));
-xAxis.tickSize(5);
+xAxis.tickSize(8);
 //xAxis.tickValues('2019-05-25-11:20:00', '2019-05-25-11:20:30', '2019-05-25-11:21:00')
 
 
@@ -60,82 +60,85 @@ d3.json("test.json", function(error, data) {
 // x-axis
   svg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
+      .attr("transform", "translate(0, " + height + ")")
       .call(xAxis)
     .append("text")
       .attr("class", "label")
-      //.attr("y", 50)
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("transform", "rotate(-65)")
+      .attr("y", 35)
+      .attr("x", width/2)
+      //.attr("transform", "rotate(-65)")
       .style("text-anchor", "end")
-      .text("Time");
+      .text("Time (graph is over 5 minute period)");
 
  // y axis - temperature
   svg.append("g")
       .attr("class", "y axis temperature")
+      .attr("transform", "translate(0, 0)") // move the axis visually
       .call(yAxis)
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
-      .attr("y", 1000)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end");
+      .attr("y", -40)
+      .attr("x", -height/2)
+      .style("text-anchor", "end")
+      .text("Temperature (° Celsius)");
 
-  // y2 axis - temperature
+  // y2 axis - pressure
   svg.append("g")
       .attr("class", "y axis pressure")
+      .attr("transform", "translate(-70, 0)")
       .call(y2Axis)
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
-      .attr("y", 1000)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end");
+      .attr("y", -40)
+      .attr("x", -height/2)
+      .style("text-anchor", "end")
+      .text("Pressure (Millibars)");
 
       // y3 axis - humidity
       svg.append("g")
           .attr("class", "y axis humidity")
+          .attr("transform", "translate(-140, 0)")
           .call(y3Axis)
         .append("text")
-          .attr("class", "label")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 1000)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end");
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -40)
+        .attr("x", -height/2)
+        .style("text-anchor", "end")
+        .text("Humidity (%)");
 
 
   // Visualise temperature
   svg.selectAll(".dot")
       .data(data)
     .enter().append("circle")
-      .attr("class", "dot")
-      .attr("r", 0.7)
+      .attr("class", "dot temperature")
+      .attr("r", 1)
       .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
       .attr("cy", function(d) { return y(d.temperature); })
       .style("fill", function(d) { return color('Temperature'); });
-
-      // Visualise humidity
-      svg.selectAll(".dot")
-          .data(data)
-        .enter().append("circle")
-          .attr("class", "dot")
-          .attr("r", 0.7)
-          .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
-          .attr("cy", function(d) { return y3(d.humidity); })
-          .style("fill", function(d) { return color('Humidity'); });
 
     // Visualise pressure
     svg.selectAll(".dot")
         .data(data)
       .enter().append("circle")
-        .attr("class", "dot")
+        .attr("class", "dot pressure")
         .attr("r", 0.7)
         .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
         .attr("cy", function(d) { return y2(d.pressure); })
-        .call(log, 'pressure', function(d) { return y2(d.pressure); })
-        .call(log, 'temperature', function(d) { return y(d.temperature); })
         .style("fill", function(d) { return color('Pressure'); });
+
+// Visualise humidity
+svg.selectAll(".dot")
+  .data(data)
+.enter().append("circle")
+  .attr("class", "dot humidity")
+  .attr("r", 0.7)
+  .attr("cx", function(d) { return x(Date.parse(d.datestamp)); })
+  .attr("cy", function(d) { return y3(d.humidity); })
+  .style("fill", function(d) { return color('Humidity'); });
 
 
   // Draw the legend
